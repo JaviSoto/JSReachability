@@ -160,8 +160,6 @@ typedef enum {
 
 #import <CoreFoundation/CoreFoundation.h>
 
-#import "Reachability.h"
-
 #define kShouldPrintReachabilityFlags 0
 
 static void PrintReachabilityFlags(SCNetworkReachabilityFlags    flags, const char* comment)
