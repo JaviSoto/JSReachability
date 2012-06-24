@@ -1,7 +1,7 @@
 JSReachability
 ==============
 
-Easy to use class to monitor the reachability asynchronously of a host using a delegate or the Notification Center
+Easy to use class for iOS to asynchronously monitor the reachability of a host using a delegate or the Notification Center.
 
 Usage
 ==============
