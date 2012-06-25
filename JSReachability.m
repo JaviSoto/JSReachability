@@ -454,7 +454,7 @@ NSString * const kJSReachabilityNotificationHostUserInfoKey = @"host";
                                                               userInfo:[NSDictionary dictionaryWithObject:self.host
                                                                                                    forKey:kJSReachabilityNotificationHostUserInfoKey]];
             
-        [self.delegate reachabilityService:self host:self.host didBecomeReachable:self.hostIsReachable];
+        [self.delegate reachability:self host:self.host didBecomeReachable:self.hostIsReachable];
     }
 }
 
