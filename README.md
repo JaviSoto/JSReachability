@@ -36,6 +36,10 @@ Dependencies
 
 JSReachability requires your application to be linked against the ```SystemConfiguration.framework``` framework.
 
+ARC Support
+==============
+```JSReachability``` doesn't support ARC at the moment. If you want to integrate it in your ARC project, simply add the ```-fno-objc-arc``` linker option to the ```JSReachability.m``` file. [Quick tutorial](http://maniacdev.com/2012/01/easily-get-non-arc-enabled-open-source-libraries-working-in-arc-enabled-projects/)
+
 License
 ==============
 Copyright 2012 [Javier Soto](http://twitter.com/javisoto) (ios@javisoto.es)
