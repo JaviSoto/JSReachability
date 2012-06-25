@@ -6,20 +6,26 @@ Easy to use class for iOS to asynchronously monitor the reachability of a host u
 Usage
 ==============
 
-- Get a reachability object calling the class method:
+- **Get a reachability object** calling the class method:
 
 ```objc
 JSReachability *reachability = [JSReachability reachabilityWithHost:@"myhost.com" delegate:self];
 ```
 
-optionally with a delegate. You can pass nil, and register to changes to changes in the reachability to the host using the notifications:
+optionally with a delegate. You can **pass nil**, and register to changes to changes in the reachability to the host **using the notifications**:
 
 ```
 extern NSString * const kJSReachabilityHostDidBecomeReachableNotification;
 extern NSString * const kJSReachabilityHostDidBecomeUnReachableNotification;
 ```
 
-- Call start and it will start monitoring **asynchronously** the host to check for changes in the reachability (for example, if the device connection goes up or down)
+or **pass ```self``` as the delegate** and implement this method from the ```JSReachabilityDelegate``` protocol:
+
+```objc
+- (void)reachabilityService:(JSReachability *)reachability host:(NSString *)host didBecomeReachable:(BOOL)reachable;
+```
+
+- **Call start** and it will start monitoring **asynchronously** the host to check for changes in the reachability (for example, if the device internet connectivity goes up or down)
 
 ```objc
 [reachability start];
