@@ -1,8 +1,8 @@
 ## JSReachability
-Easy to use class for iOS to asynchronously monitor the reachability of a host using a delegate or the Notification Center.
+Easy to use iOS class to asynchronously monitor the reachability of a host.
 
-This allows you to know at any given time not only whether the device is connected to the internet, but also if that connection is working.
-You can check for the *reachability* of a host that you know will always be up and running (*e.g. google.com), or your own backend server, and that way you can detect not only if the iOS device looses connectivity, but also if your server is down.
+This allows you to **know at any given time** not only **whether the iPhone / iPad is connected to the internet**, but also if that connection is working.
+You can check for the *reachability* of a host that you know will always be up and running (*e.g. google.com*), or your own backend server, and that way you can **detect also if the API the app connects to is down**.
 
 ## Usage
 - **Get a reachability object** calling the class method:
@@ -11,7 +11,7 @@ You can check for the *reachability* of a host that you know will always be up a
 JSReachability *reachability = [JSReachability reachabilityWithHost:@"myhost.com" delegate:self];
 ```
 
-optionally with a delegate. You can **pass nil**, and register to changes to changes in the reachability to the host **using the notification**:
+- You can **pass nil as the delegate**, and register to changes to changes in the reachability to the host **using the ```NSNotificationCenter```**:
 
 ```
 extern NSString * const kJSReachabilityHostReachabilityDidChangeNotification;
@@ -36,13 +36,13 @@ and then implement the method to check the new value:
 }
 ```
 
-or **pass ```self``` as the delegate** and implement this method from the ```JSReachabilityDelegate``` protocol:
+- Or **pass ```self``` as the delegate** and implement this method from the ```JSReachabilityDelegate``` protocol:
 
 ```objc
 - (void)reachabilityService:(JSReachability *)reachability host:(NSString *)host didBecomeReachable:(BOOL)reachable;
 ```
 
-- **Call start** and it will start monitoring **asynchronously** the host to check for changes in the reachability (for example, if the device internet connectivity goes up or down)
+- Then **call start** and it will start monitoring **asynchronously** the host to check for changes in the reachability (for example, if the device internet connectivity goes up or down)
 
 ```objc
 [reachability start];
