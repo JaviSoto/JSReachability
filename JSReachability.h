@@ -46,5 +46,11 @@ extern NSString * const kJSReachabilityNotificationHostUserInfoKey;
 @protocol JSReachabilityDelegate <NSObject>
 
 - (void)reachabilityService:(JSReachability *)reachability host:(NSString *)host didBecomeReachable:(BOOL)reachable;
+/**
+ * @param reachability the object monitoring the reachability
+ * @param host the host being monitored (the same as passed when initializing)
+ * @param reachable a boolean with whether the host is reachable or not
+ * @discussion this method is called at least once when reachability starts monitoring with the initial value
+ */
 
 @end
