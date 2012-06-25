@@ -449,10 +449,10 @@ NSString * const kJSReachabilityNotificationHostUserInfoKey = @"host";
         self.hostIsReachable = newHostIsReachable;
         self->_reachabilityStatusSet = YES;
         
-		[[NSNotificationCenter defaultCenter] postNotificationName:kJSReachabilityHostReachabilityDidChangeNotification
-                                                                object:self
-                                                              userInfo:[NSDictionary dictionaryWithObject:self.host
-                                                                                                   forKey:kJSReachabilityNotificationHostUserInfoKey]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kJSReachabilityHostReachabilityDidChangeNotification
+                                                            object:self
+                                                          userInfo:[NSDictionary dictionaryWithObject:self.host
+                                                                                               forKey:kJSReachabilityNotificationHostUserInfoKey]];
             
         [self.delegate reachability:self host:self.host didBecomeReachable:self.hostIsReachable];
     }
