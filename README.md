@@ -8,7 +8,7 @@ You can check for the *reachability* of a host that you know will always be up a
 - **Get a reachability object** calling the class method:
 
 ```objc
-JSReachability *reachability = [JSReachability reachabilityWithHost:@"myhost.com" delegate:self];
+JSReachability *reachability = [[JSReachability reachabilityWithHost:@"myhost.com" delegate:self] retain];
 ```
 
 - You can **pass nil as the delegate**, and register to changes to changes in the reachability to the host **using the ```NSNotificationCenter```**:
