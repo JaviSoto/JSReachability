@@ -1,5 +1,5 @@
 ## JSReachability
-Easy to use class for iOS to asynchronously monitor the reachability of a host using a delegate or the Notification Center.
+Easy to use iOS class to asynchronously monitor the reachability of a host.
 
 This allows you to **know at any given time** not only **whether the iPhone / iPad is connected to the internet**, but also if that connection is working.
 You can check for the *reachability* of a host that you know will always be up and running (*e.g. google.com*), or your own backend server, and that way you can **detect also if the API the app connects to is down**.
