@@ -1,11 +1,7 @@
-JSReachability
-==============
-
+## JSReachability
 Easy to use class for iOS to asynchronously monitor the reachability of a host using a delegate or the Notification Center.
 
-Usage
-==============
-
+## Usage
 - **Get a reachability object** calling the class method:
 
 ```objc
@@ -31,17 +27,13 @@ or **pass ```self``` as the delegate** and implement this method from the ```JSR
 [reachability start];
 ```
 
-Dependencies
-==============
-
+## Dependencies
 JSReachability requires your application to be linked against the ```SystemConfiguration.framework``` framework.
 
-ARC Support
-==============
+## ARC Support
 ```JSReachability``` doesn't support ARC at the moment. If you want to integrate it in your ARC project, simply add the ```-fno-objc-arc``` linker option to the ```JSReachability.m``` file. [Quick tutorial](http://maniacdev.com/2012/01/easily-get-non-arc-enabled-open-source-libraries-working-in-arc-enabled-projects/)
 
-License
-==============
+## License
 Copyright 2012 [Javier Soto](http://twitter.com/javisoto) (ios@javisoto.es)
 
 Licensed under the Apache License, Version 2.0 (the "License");
