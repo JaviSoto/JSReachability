@@ -39,7 +39,7 @@ and then implement the method to check the new value:
 - Or **pass ```self``` as the delegate** and implement this method from the ```JSReachabilityDelegate``` protocol:
 
 ```objc
-- (void)reachabilityService:(JSReachability *)reachability host:(NSString *)host didBecomeReachable:(BOOL)reachable;
+- (void)reachability:(JSReachability *)reachability host:(NSString *)host didBecomeReachable:(BOOL)reachable;
 ```
 
 - Then **call start** and it will start monitoring **asynchronously** the host to check for changes in the reachability (for example, if the device internet connectivity goes up or down)
