@@ -17,7 +17,7 @@ extern NSString * const kJSReachabilityHostReachabilityDidChangeNotification;
 like this:
 
 ```objc
-[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hostReachabilityChanged:) name:kJSReachabilityHostReachabilityDidChangeNotification object:reachability];
+[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hostReachabilityChanged:) name:kJSReachabilityHostReachabilityDidChangeNotification object:reachability];
 ```
 
 and then implement the method to check the new value:
