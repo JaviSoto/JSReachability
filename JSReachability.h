@@ -30,7 +30,7 @@ extern NSString * const kJSReachabilityNotificationHostUserInfoKey;
  * @param delegate (optional)
  */
 + (JSReachability *)reachabilityWithHost:(NSString *)host
-                                       delegate:(id<JSReachabilityDelegate>)delegate;
+                                delegate:(id<JSReachabilityDelegate>)delegate;
 
 /**
  * @discussion Starts monitoring the provided host for reachability and calls the delegate with updates
