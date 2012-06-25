@@ -400,23 +400,13 @@ NSString * const kJSReachabilityNotificationHostUserInfoKey = @"host";
 #pragma mark - Public
 
 + (JSReachability *)reachabilityWithHost:(NSString *)host
-                                       delegate:(id<JSReachabilityDelegate>)delegate
+                                delegate:(id<JSReachabilityDelegate>)delegate
 {
-    JSReachability *reachabilityService = [[self alloc] init];
-    reachabilityService.host = host;
-    reachabilityService.delegate = delegate;
+    JSReachability *reachability = [[self alloc] init];
+    reachability.host = host;
+    reachability.delegate = delegate;
     
-    return [reachabilityService autorelease];
-}
-
-#pragma mark - ReachService
-
-- (Reachability *)hostReach
-{
-    if (!_hostReach)
-        _hostReach = [[Reachability reachabilityWithHostName:self.host] retain];
-    
-    return _hostReach;
+    return [reachability autorelease];
 }
 
 - (void)start
@@ -431,6 +421,16 @@ NSString * const kJSReachabilityNotificationHostUserInfoKey = @"host";
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
     
     [[self hostReach] stopNotifier];
+}
+
+#pragma mark - ReachService
+
+- (Reachability *)hostReach
+{
+    if (!_hostReach)
+        _hostReach = [[Reachability reachabilityWithHostName:self.host] retain];
+    
+    return _hostReach;
 }
 
 #pragma mark - Reachability
