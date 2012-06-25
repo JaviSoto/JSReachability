@@ -378,23 +378,22 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 #pragma mark - JSReachability
 
-NSString * const kJSReachabilityHostDidBecomeReachableNotification = @"kJSReachabilityHostDidBecomeReachableNotification";
-NSString * const kJSReachabilityHostDidBecomeUnReachableNotification = @"kJSReachabilityHostDidBecomeUnReachableNotification";
+NSString * const kJSReachabilityHostReachabilityDidChangeNotification; = @"JSReachabilityHostReachabilityDidChangeNotification";
 NSString * const kJSReachabilityNotificationHostUserInfoKey = @"host";
 
 @interface JSReachability()
 {
     Reachability *_hostReach;
-    BOOL _connectionStatusSet;
+    BOOL _reachabilityStatusSet;
 }
 
-@property (nonatomic, assign, readwrite) BOOL connectionAvailable;
+@property (nonatomic, assign, readwrite) BOOL hostIsReachable;
 @property (nonatomic, copy) NSString *host;
 @end
 
 @implementation JSReachability
 
-@synthesize connectionAvailable = _connectionAvailable;
+@synthesize hostIsReachable = _hostIsReachable;
 @synthesize delegate = _delegate;
 @synthesize host = _host;
 
@@ -442,32 +441,20 @@ NSString * const kJSReachabilityNotificationHostUserInfoKey = @"host";
     NSParameterAssert([curReach isKindOfClass: [Reachability class]]);
     NetworkStatus netStatus = [curReach currentReachabilityStatus];
     
-    BOOL newConnectionAvailable = netStatus != NotReachable;
-    BOOL connectionStatusChanged = self.connectionAvailable != newConnectionAvailable;
+    BOOL newHostIsReachable = netStatus != NotReachable;
+    BOOL reachabilityChanged = self.hostIsReachable != newHostIsReachable;
     
-    if (connectionStatusChanged || !_connectionStatusSet)
+    if (reachabilityChanged || !_reachabilityStatusSet)
     {
-        self.connectionAvailable = newConnectionAvailable;
-        self->_connectionStatusSet = YES;
+        self.hostIsReachable = newHostIsReachable;
+        self->_reachabilityStatusSet = YES;
         
-        if (newConnectionAvailable)
-        {
-            [[NSNotificationCenter defaultCenter] postNotificationName:kJSReachabilityHostDidBecomeReachableNotification
+		[[NSNotificationCenter defaultCenter] postNotificationName:kJSReachabilityHostReachabilityDidChangeNotification
                                                                 object:self
                                                               userInfo:[NSDictionary dictionaryWithObject:self.host
                                                                                                    forKey:kJSReachabilityNotificationHostUserInfoKey]];
             
-            [self.delegate reachabilityService:self host:self.host didBecomeReachable:YES];
-        }
-        else
-        {
-            [[NSNotificationCenter defaultCenter] postNotificationName:kJSReachabilityHostDidBecomeReachableNotification
-                                                                object:self
-                                                              userInfo:[NSDictionary dictionaryWithObject:self.host
-                                                                                                   forKey:kJSReachabilityNotificationHostUserInfoKey]];
-            
-            [self.delegate reachabilityService:self host:self.host didBecomeReachable:NO];
-        }
+        [self.delegate reachabilityService:self host:self.host didBecomeReachable:self.hostIsReachable];
     }
 }
 

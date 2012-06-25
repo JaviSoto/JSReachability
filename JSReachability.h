@@ -14,15 +14,14 @@
  limitations under the License. 
  */
 
-extern NSString * const kJSReachabilityHostDidBecomeReachableNotification;
-extern NSString * const kJSReachabilityHostDidBecomeUnReachableNotification;
+extern NSString * const kJSReachabilityHostReachabilityDidChangeNotification;
 extern NSString * const kJSReachabilityNotificationHostUserInfoKey;
 
 @protocol JSReachabilityDelegate;
 
 @interface JSReachability : NSObject
 
-@property (nonatomic, assign, readonly) BOOL connectionAvailable;
+@property (nonatomic, assign, readonly) BOOL hostIsReachable;
 @property (nonatomic, assign) id<JSReachabilityDelegate> delegate;
 
 /**
