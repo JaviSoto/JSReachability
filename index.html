@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>JSReachability by JaviSoto</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>JSReachability</h1>
+          <h2>Easy to use iOS class to asynchronously monitor the internet connectivity and reachability of a host.</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/JaviSoto/JSReachability/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/JaviSoto/JSReachability/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/JaviSoto/JSReachability" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h2>JSReachability</h2>
+
+<p>Easy to use iOS class to asynchronously monitor the reachability of a host.</p>
+
+<p>This allows you to <strong>know at any given time</strong> not only <strong>whether the iPhone / iPad is connected to the internet</strong>, but also if that connection is working.
+You can check for the <em>reachability</em> of internet in general, or of your own backend server, and that way you can <strong>detect also if the API the app connects to is down</strong>.</p>
+
+<h2>Usage</h2>
+
+<ul>
+<li>
+<strong>Get a reachability object</strong> calling the class method:</li>
+</ul><div class="highlight">
+<pre><span class="n">JSReachability</span> <span class="o">*</span><span class="n">reachability</span> <span class="o">=</span> <span class="p">[[</span><span class="n">JSReachability</span> <span class="nl">reachabilityWithHost:</span><span class="s">@"myhost.com"</span> <span class="nl">delegate:</span><span class="n">self</span><span class="p">]</span> <span class="n">retain</span><span class="p">];</span>
+</pre>
+</div>
+
+
+<p>or if you don't want to specify a host:</p>
+
+<div class="highlight">
+<pre><span class="n">JSReachability</span> <span class="o">*</span><span class="n">reachability</span> <span class="o">=</span> <span class="p">[[</span><span class="n">JSReachability</span> <span class="nl">reachabilityForInternetConnectionWithDelegate:</span><span class="n">self</span><span class="p">]</span> <span class="n">retain</span><span class="p">];</span>
+</pre>
+</div>
+
+
+<ul>
+<li>You can <strong>pass nil as the delegate</strong>, and register to changes to changes in the reachability to the host <strong>using the <code>NSNotificationCenter</code></strong>:</li>
+</ul><pre><code>extern NSString * const kJSReachabilityHostReachabilityDidChangeNotification;
+</code></pre>
+
+<p>like this:</p>
+
+<div class="highlight">
+<pre><span class="p">[[</span><span class="n">NSNotificationCenter</span> <span class="n">defaultCenter</span><span class="p">]</span> <span class="nl">addObserver:</span><span class="n">self</span> <span class="nl">selector:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">hostReachabilityChanged:</span><span class="p">)</span> <span class="nl">name:</span><span class="n">kJSReachabilityHostReachabilityDidChangeNotification</span> <span class="nl">object:</span><span class="n">reachability</span><span class="p">];</span>
+</pre>
+</div>
+
+
+<p>and then implement the method to check the new value:</p>
+
+<div class="highlight">
+<pre><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">hostReachabilityChanged:</span><span class="p">(</span><span class="n">NSNotification</span> <span class="o">*</span><span class="p">)</span><span class="nv">note</span>
+<span class="p">{</span>
+    <span class="n">JSReachability</span> <span class="o">*</span><span class="n">reachability</span> <span class="o">=</span> <span class="n">note</span><span class="p">.</span><span class="n">object</span><span class="p">;</span>
+
+    <span class="kt">BOOL</span> <span class="n">hostIsReachable</span> <span class="o">=</span> <span class="n">reachability</span><span class="p">.</span><span class="n">hostIsReachable</span><span class="p">;</span>
+
+    <span class="c1">// Do something with hostIsReachable</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<ul>
+<li>Or <strong>pass <code>self</code> as the delegate</strong> and implement this method from the <code>JSReachabilityDelegate</code> protocol:</li>
+</ul><div class="highlight">
+<pre><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">reachability:</span><span class="p">(</span><span class="n">JSReachability</span> <span class="o">*</span><span class="p">)</span><span class="nv">reachability</span> <span class="nf">host:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">host</span> <span class="nf">didBecomeReachable:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">reachable</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>Then <strong>call start</strong> and it will start monitoring <strong>asynchronously</strong> the host to check for changes in the reachability (for example, if the device internet connectivity goes up or down)</li>
+</ul><div class="highlight">
+<pre><span class="p">[</span><span class="n">reachability</span> <span class="n">start</span><span class="p">];</span>
+</pre>
+</div>
+
+
+<h2>Dependencies</h2>
+
+<p>JSReachability requires your application to be linked against the <code>SystemConfiguration.framework</code> framework.</p>
+
+<h2>ARC Support</h2>
+
+<p><code>JSReachability</code> doesn't support ARC at the moment. If you want to integrate it in your ARC project, simply add the <code>-fno-objc-arc</code> linker option to the <code>JSReachability.m</code> file. <a href="http://maniacdev.com/2012/01/easily-get-non-arc-enabled-open-source-libraries-working-in-arc-enabled-projects/">Quick tutorial</a></p>
+
+<h2>License</h2>
+
+<p>Copyright 2012 <a href="http://twitter.com/javisoto">Javier Soto</a> (<a href="mailto:ios@javisoto.es">ios@javisoto.es</a>)</p>
+
+<p>Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at</p>
+
+<p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+
+<p>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+ limitations under the License. </p>
+
+<p>Attribution is not required, but appreciated.</p>
+        </section>
+
+        <footer>
+          JSReachability is maintained by <a href="https://github.com/JaviSoto">JaviSoto</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+                  <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker(" UA-30545231-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+      </div>
+    </div>
+  </body>
+</html>
