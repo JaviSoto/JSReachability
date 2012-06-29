@@ -14,8 +14,8 @@
  limitations under the License. 
  */
 
-extern NSString * const kJSReachabilityHostReachabilityDidChangeNotification;
-extern NSString * const kJSReachabilityNotificationHostUserInfoKey;
+extern NSString * const JSReachabilityHostReachabilityDidChangeNotification;
+extern NSString * const JSReachabilityNotificationHostUserInfoKey;
 
 @protocol JSReachabilityDelegate;
 

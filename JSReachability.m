@@ -378,8 +378,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 #pragma mark - JSReachability
 
-NSString * const kJSReachabilityHostReachabilityDidChangeNotification = @"JSReachabilityHostReachabilityDidChangeNotification";
-NSString * const kJSReachabilityNotificationHostUserInfoKey = @"host";
+NSString * const JSReachabilityHostReachabilityDidChangeNotification = @"JSReachabilityHostReachabilityDidChangeNotification";
+NSString * const JSReachabilityNotificationHostUserInfoKey = @"host";
 
 @interface JSReachability()
 {
