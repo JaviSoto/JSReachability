@@ -409,6 +409,12 @@ NSString * const JSReachabilityNotificationHostUserInfoKey = @"host";
     return [reachability autorelease];
 }
 
++ (JSReachability *)reachabilityForInternetConnectionWithDelegate:(id<JSReachabilityDelegate>)delegate
+{
+	return [self reachabilityWithHost:nil
+                             delegate:delegate];
+}
+
 - (void)start
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChangedNotification:) name:kReachabilityChangedNotification object:nil];
@@ -428,7 +434,14 @@ NSString * const JSReachabilityNotificationHostUserInfoKey = @"host";
 - (Reachability *)hostReach
 {
     if (!_hostReach)
-        _hostReach = [[Reachability reachabilityWithHostName:self.host] retain];
+    {
+    	if (self.host)
+	        _hostReach = [Reachability reachabilityWithHostName:self.host];
+	    else
+	    	_hostReach = [Reachability reachabilityForInternetConnection];
+        
+        [_hostReach retain];
+    }
     
     return _hostReach;
 }
@@ -449,10 +462,12 @@ NSString * const JSReachabilityNotificationHostUserInfoKey = @"host";
         self.hostIsReachable = newHostIsReachable;
         self->_reachabilityStatusSet = YES;
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:kJSReachabilityHostReachabilityDidChangeNotification
+        [[NSNotificationCenter defaultCenter] postNotificationName:JSReachabilityHostReachabilityDidChangeNotification
                                                             object:self
-                                                          userInfo:[NSDictionary dictionaryWithObject:self.host
-                                                                                               forKey:kJSReachabilityNotificationHostUserInfoKey]];
+                                                          userInfo:(self.host ?
+                                                                    [NSDictionary dictionaryWithObject:self.host
+                                                                                                forKey:JSReachabilityNotificationHostUserInfoKey] : 
+                                                                    nil)];
             
         [self.delegate reachability:self host:self.host didBecomeReachable:self.hostIsReachable];
     }

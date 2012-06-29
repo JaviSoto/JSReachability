@@ -25,11 +25,17 @@ extern NSString * const JSReachabilityNotificationHostUserInfoKey;
 @property (nonatomic, assign) id<JSReachabilityDelegate> delegate;
 
 /**
- * @param host the host to monitor whether it's reachable or not
- * @param delegate (optional)
+ * @param host (required) the host to monitor whether it's reachable or not.
+ * @param delegate (optional). Pass `nil` if you just want to use the NSNotificationCenter approach.
  */
 + (JSReachability *)reachabilityWithHost:(NSString *)host
                                 delegate:(id<JSReachabilityDelegate>)delegate;
+
+/**
+ * @discussion doesn'in case you're not interested in a particular host.
+ * @param delegate (optional). Pass `nil` if you just want to use the NSNotificationCenter approach.
+ */
++ (JSReachability *)reachabilityForInternetConnectionWithDelegate:(id<JSReachabilityDelegate>)delegate;
 
 /**
  * @discussion Starts monitoring the provided host for reachability and calls the delegate with updates
@@ -47,7 +53,7 @@ extern NSString * const JSReachabilityNotificationHostUserInfoKey;
 
 /**
  * @param reachability the object monitoring the reachability
- * @param host the host being monitored (the same as passed when initializing)
+ * @param host the host being monitored (the same as passed when initializing). May be nil if you're monitoring the internet connection.
  * @param reachable a boolean with whether the host is reachable or not
  * @discussion this method is called at least once when reachability starts monitoring with the initial value
  */
